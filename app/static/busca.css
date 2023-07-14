@@ -1,0 +1,137 @@
+body {
+  font-family: Arial;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.01);
+}
+
+body>div {
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  display: flex;
+}
+
+.fixedtab {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  background-color: #ffd370;
+  display: flex;
+  width: fit-content;
+  overflow: hidden;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  position: relative;
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  width: 180px;
+}
+
+.tab button::after {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px 5px 0 0;
+  bottom: 0;
+  transition: ease-in-out 0.1s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover::after {
+  width: 24px;
+}
+
+/* Create an active/current tablink class */
+.tab button.active::after {
+  width: 80%;
+}
+
+.tab button.active {
+  font-weight: bold;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 32px 0px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0 5px 5px 5px;
+  background: white;
+  overflow: hidden;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+form label {
+  font-weight: bold;
+  font-size: large;
+}
+
+form input[type="number"],
+form input[type="text"] {
+  width: 150px;
+  height: 18px;
+  border-radius: 3px;
+  border-width: 1px;
+  background: rgba(0, 0, 0, 0.01);
+  padding: 4px;
+}
+
+form input[type="submit"] {
+  width: 160px;
+  height: 30px;
+  border-radius: 3px;
+  border-width: 1px;
+  background-color: #ffd370;
+  font-weight: bold;
+  transition: ease-in-out 0.1s;
+}
+
+form input[type="submit"]:hover {
+  cursor: pointer;
+  background-color: #ecbc4c;
+}
+
+table {
+  width: 100% !important;
+}
+
+footer {
+  padding: 32px 0;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  font-size: 14px;
+}
+
+footer a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}

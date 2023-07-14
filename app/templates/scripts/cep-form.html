@@ -1,0 +1,83 @@
+<script type="text/javascript">
+  $(document).on('submit', '#busca-cep', function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'GET',
+      url: '/api/busca-cep',
+      data: {
+        cep: $("#cep").val()
+      },
+      success: function (json) {
+        var tabTemplate = $('script[data-template="cepTabTemplate"]').text().split(/\$\{(.+?)\}/g);
+        var contentTemplate = $('script[data-template="cepContentTemplate"]').text().split(/\$\{(.+?)\}/g);
+        function render(props) {
+          return function (tok, i) { return (i % 2) ? props[tok] : tok; };
+        }
+        $(".tab").append(tabTemplate.map(render(json)).join(''))
+        $(".contents-container").append(contentTemplate.map(render(json)).join(''))
+
+        let table = $('#cep-table-' + json.cep).DataTable({
+          data: [json],
+          searching: false,
+          columns: [
+            {
+              className: 'dt-control',
+              orderable: false,
+              data: null,
+              defaultContent: ''
+            },
+            { data: 'cep' },
+            { data: 'logradouro' },
+          ]
+        })
+
+        function format(d) {
+          let vertical_d = Object.keys(d).map(key => {
+            return { key: key, value: d[key] }
+          })
+          // `d` is the original data object for the row
+          return (`
+            <table id="ip-subtable-${d.id}" class="display">
+              <thead>
+                <tr>
+                  <th>Campo</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+            <script>
+              $('#ip-subtable-${d.id}').DataTable({
+                data: ${JSON.stringify(vertical_d)},
+                searching: false,
+                paging: false,
+                columns: [
+                  { data: 'key' },
+                  { data: 'value' }
+                ]
+              })
+            <\/script>`);
+        }
+
+        // Add event listener for opening and closing details
+        table.on('click', 'td.dt-control', function (e) {
+          let tr = e.target.closest('tr');
+          let row = table.row(tr);
+
+          if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+          }
+          else {
+            // Open this row
+            row.child(format(row.data())).show();
+          }
+        });
+
+        table.columns.adjust().draw();
+        console.log(json)
+      }
+    })
+  });
+</script>

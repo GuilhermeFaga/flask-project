@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Busca</title>
+  <link rel="stylesheet" href="busca.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
+</head>
+
+<body>
+  <!--JQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
+
+  <div>
+
+    <div class="tab">
+      <div class="fixedtab">
+        <button class="tablinks active" onclick="openTab(event, 'CEP')">Buscar CEP</button>
+        <button class="tablinks" onclick="openTab(event, 'IP')">Buscar IP</button>
+      </div>
+    </div>
+
+    <div class="contents-container">
+
+      <div id="CEP" class="tabcontent" style="display: block;">
+        <form id="busca-cep">
+          {{ cepform.cep.label }} {{ cepform.cep(size=8) }}
+          <input id="cep-submit" type="submit" value="Buscar CEP">
+        </form>
+
+        {% include 'scripts/cep-form.html' %}
+      </div>
+
+      <div id="IP" class="tabcontent">
+        <form id="busca-ip">
+          {{ ipform.ip.label }} {{ ipform.ip(size=8) }}
+          <input id="ip-submit" type="submit" value="Buscar IP">
+        </form>
+
+        {% include 'scripts/ip-form.html' %}
+      </div>
+
+    </div>
+    <footer>
+      <span>Desenvolvido por <a href="https://faga.dev" target="_blank">faga.dev</a></span>
+      <a href="https://faga.dev" target="_blank">GitHub</a>
+    </footer>
+  </div>
+  {% include 'scripts/tabs-script.html' %}
+
+  {% include 'scripts/cep-tab.html' %}
+  {% include 'scripts/cep-table.html' %}
+
+  {% include 'scripts/ip-tab.html' %}
+  {% include 'scripts/ip-table.html' %}
+</body>
+
+</html>
